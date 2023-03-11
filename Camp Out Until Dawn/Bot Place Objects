@@ -1,0 +1,5 @@
+--|Automatically places grabbed items
+while task.wait()do
+	fireproximityprompt(workspace["Camp site"].Firepit.Main.ProximityPrompt)
+	fireproximityprompt(workspace.Generator.PromptRoot.ProximityPrompt)
+end
