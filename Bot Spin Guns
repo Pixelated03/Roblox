@@ -1,0 +1,16 @@
+--|Automatically fire/spin players' weapons
+local m='Spin'
+getgenv().AutoShotGuns=workspace.DescendantAdded:Connect(function(v)
+	if v.Name=='Revolver'and v.Parent.Name=='Remotes'then
+		v:FireServer(m)
+	end
+end)
+for _,v in pairs(game.Players:GetPlayers())do
+	local c=v.Character
+	if c --[[and v~=v.Parent.LocalPlayer]] then
+		local t=c:FindFirstChildOfClass'Tool'
+		if t then
+    		t.Remotes.Revolver:FireServer(m)
+		end
+	end
+end
