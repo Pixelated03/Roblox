@@ -1,0 +1,5 @@
+--|Use some codes
+local codes={'=p','squid army','=d','chillthrill709 was here','hi'}
+for _,v in pairs(codes)do
+	workspace.CheckCodeFunction:InvokeServer(v)
+end
