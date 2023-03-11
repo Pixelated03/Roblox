@@ -1,3 +1,4 @@
+--|Automatically places the cakes in the machines
 getgenv().AutoPlaceCakes=true
 local r,vec,E=Vector3.new(),{
 Rising=Vector3.new(-341,293,-465),
