@@ -1,0 +1,6 @@
+--|Collect all achievements
+for _,v in pairs(game.ReplicatedStorage:GetDescendants())do
+	if v.ClassName=='RemoteEvent'then
+		v:FireServer()
+	end
+end
