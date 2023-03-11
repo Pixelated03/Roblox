@@ -1,0 +1,2 @@
+--|Collect all achievements
+loadstring(game:HttpGet'https://github.com/Pixelated03/Roblox/blob/main/Windows%2010%20OS/Get%20Badges')()
