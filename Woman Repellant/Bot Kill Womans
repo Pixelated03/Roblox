@@ -1,0 +1,9 @@
+--|Woman ☕
+local a=game.Players.LocalPlayer
+workspace.Woman.ChildAdded:Connect(function(v)
+	task.wait(5)
+	game.ReplicatedStorage.FirearmEvents.Hit:FireServer(a,a.Character['Steyr Scout'],a.Character['Steyr Scout'].Barrel.Muzzle,a.Character['Steyr Scout'].WeaponStats,v.Humanoid,v.Head)
+end)
+for _,v in pairs(workspace.Woman:GetChildren())do
+	game.ReplicatedStorage.FirearmEvents.Hit:FireServer(a,a.Character['Steyr Scout'],a.Character['Steyr Scout'].Barrel.Muzzle,a.Character['Steyr Scout'].WeaponStats,v.Humanoid,v.Head)
+end
