@@ -1,0 +1,13 @@
+--|Automatically trigger nearby interactives like points or recall reinforcements
+getgenv().AutoGetP=true
+while AutoGetP and task.wait()do
+	local m,c=workspace:FindFirstChild'CurrentMap',game.Players.LocalPlayer.Character
+	if m and c and c.PrimaryPart and m:FindFirstChild'Interactables'then
+		for _,v in pairs(m.Interactables:GetChildren())do
+			if(v:GetModelCFrame().Position-c.PrimaryPart.Position).Magnitude<=10 then
+				workspace.mainGame.remotes.game_handler:FireServer("interaction",{with=v})
+				task.wait()
+			end
+		end
+	end
+end
