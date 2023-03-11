@@ -1,0 +1,13 @@
+--|Automatically create CDS
+_G.AutoMakeCD=true
+while _G.AutoMakeCD and task.wait(1)do
+	game:GetService("ReplicatedStorage").Events.GenerateNumber:FireServer()
+	local args = {
+	    [1] = game:GetService("Players").LocalPlayer
+	}
+	game:GetService("ReplicatedStorage").Events.CDs:FireServer(unpack(args))
+	local args = {
+	    [1] = game:GetService("Players").LocalPlayer
+	}
+	game:GetService("ReplicatedStorage").Events.CDs:FireServer(unpack(args))
+end
