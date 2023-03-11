@@ -1,0 +1,4 @@
+--|Automatically press the button
+while task.wait()do
+	fireclickdetector(workspace.ButtonPresser.Button.ClickDetector)
+end
