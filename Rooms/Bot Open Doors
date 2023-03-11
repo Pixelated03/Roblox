@@ -1,0 +1,7 @@
+--|Opens the doors automatically
+--|My Record: 2300 doors
+workspace.DescendantAdded:Connect(function(v)
+	if v.ClassName=='ClickDetector'and tostring(v.Parent)=='door'then
+		fireclickdetector(v)
+	end
+end)
