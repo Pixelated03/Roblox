@@ -1,0 +1,21 @@
+--|Disappear parts at a radius of 20 studs with the X key
+local a=game.Players.LocalPlayer
+getgenv().DParts=game.UserInputService.InputBegan:Connect(function(input,prc)
+	if input.KeyCode==Enum.KeyCode.X and not prc then
+		local c=a.Character
+		for _,n in pairs(workspace.GameObjects.Physical.Map.Floor:GetChildren())do
+			local i=n:FindFirstChild'Items'
+			if i then
+				for _,v in pairs(i:GetChildren())do
+					local t1,t=v.PrimaryPart,c.PrimaryPart
+					if t and t1 and((t.Position-t1.Position).Magnitude<20)then
+						task.spawn(function()
+							workspace.GameObjects.Physical.Players[a.Name].System.Action:InvokeServer('Pickup',{['Model']=v})
+						end)
+						v:Destroy()
+					end
+				end
+			end
+		end
+	end
+end)
