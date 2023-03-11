@@ -1,0 +1,16 @@
+--|Collect the chests with tp
+local a
+task.spawn(function()
+	for _,v in pairs(workspace.chests:GetDescendants())do
+		if v.ClassName=='ProximityPrompt'then
+			a=v.Parent
+			task.wait(1.5)
+			fireproximityprompt(v)
+		end
+	end
+end)
+while game['Run Service'].RenderStepped:Wait()do
+	if a and(a.Parent)then
+		game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(a.CFrame)
+	end
+end
