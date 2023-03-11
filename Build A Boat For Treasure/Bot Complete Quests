@@ -1,0 +1,40 @@
+--|Complete some chosen quests
+local a=game.Players.LocalPlayer
+local c,z=a.Character,workspace[tostring(a.Team.TeamColor)..'Zone'].Quest
+if c and(c.PrimaryPart)then
+	if z:FindFirstChild'Cloud'then
+		firetouchinterest(c.PrimaryPart,z.Cloud.Part1,0)
+		firetouchinterest(c.PrimaryPart,z.Cloud.Part1,1)
+	elseif(function()local x=z:FindFirstChild'Target'or z:FindFirstChild'Ramp'if x then z=x return true end end)()then
+		for _,v in pairs(z:GetChildren())do
+			if v:FindFirstChild'TouchInterest'and v.Name=='Part'then
+				firetouchinterest(c.PrimaryPart,v,0)
+				firetouchinterest(c.PrimaryPart,v,1)
+			end
+		end
+	elseif z:FindFirstChild'Butter'then
+		repeat fireclickdetector(z.Butter.PPart.ClickDetector)task.wait(.1)until not z.Butter:FindFirstChild'PPart'
+	elseif z:FindFirstChild'NutCrackerBattle'then
+		while task.wait(.1)do
+			if not z:FindFirstChild'NutCrackerBattle'or not a.Character or not a.Character.PrimaryPart or not a.Character:FindFirstChild'CandyCaneWeapon'then
+				break
+			end
+			for _,v in pairs(z.NutCrackerBattle.Enemies:GetChildren())do
+				if v:FindFirstChild'Humanoid'and(v.Humanoid.Health>0)and v:FindFirstChild'Head'then
+					a.Character.CandyCaneWeapon.ThrowEvent:FireServer(v.Head.CFrame)
+				end
+			end
+		end
+	elseif z:FindFirstChild'GiantPresentFight'then
+		while task.wait(.1)do
+			if not z:FindFirstChild'GiantPresentFight'or not a.Character or not a.Character.PrimaryPart or not a.Character:FindFirstChild'CandyCaneWeapon'then
+				break
+			end
+			for _,v in pairs(z.GiantPresentFight:GetChildren())do
+				if v:FindFirstChild'Humanoid'and(v.Humanoid.Health>0)and v:FindFirstChild'Lava'then
+					a.Character.CandyCaneWeapon.ThrowEvent:FireServer(v.Lava.CFrame)
+				end
+			end
+		end
+	end
+end
