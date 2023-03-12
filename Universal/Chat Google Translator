@@ -19,7 +19,8 @@ gg().CT={C={},fcs={},D=function()
 	end
 	gg().CT=nil
 end}
-local e,go,h,rq,sm,sgm,sb,plrs,SG,pr='es',CT,game:FindService'HttpService',request or syn.request or http_request or http.request,string.match,string.gmatch,string.sub,game:FindService'Players',game:FindService'StarterGui',{Color=Color3.new(1,1,0),Font=Enum.Font.SourceSansItalic,TextSize=16}
+--|Replace the first string with your language| es='Español', en='English'
+local e,go,h,rq,sm,sgm,sb,plrs,SG,pr='en',CT,game:FindService'HttpService',request or syn.request or http_request or http.request,string.match,string.gmatch,string.sub,game:FindService'Players',game:FindService'StarterGui',{Color=Color3.new(1,1,0),Font=Enum.Font.SourceSansItalic,TextSize=16}
 if rq then
 	--|Chat Translator
 	function trs(t,e,f)
