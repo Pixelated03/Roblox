@@ -1,0 +1,91 @@
+--|Original: https://v3rmillion.net/showthread.php?tid=1166531
+--|This is a version that runs instantly with no crashes so it's simplified
+if not game:IsLoaded()then
+	game.Loaded:Wait()
+end
+--|Disconnect Older
+if CT then
+	CT.D()
+end
+--|API Requests
+local gg=getgenv
+gg().CT={C={},fcs={},D=function()
+	for i in pairs(gg().CT.C)do
+		i:Disconnect()
+	end
+	gg().CT.D=nil
+	for _,v in pairs(gg().CT.fcs)do
+		v:Enable()
+	end
+	gg().CT=nil
+end}
+local e,go,h,rq,sm,sgm,sb,plrs,SG,pr='es',CT,game:FindService'HttpService',request or syn.request or http_request or http.request,string.match,string.gmatch,string.sub,game:FindService'Players',game:FindService'StarterGui',{Color=Color3.new(1,1,0),Font=Enum.Font.SourceSansItalic,TextSize=16}
+if rq then
+	--|Chat Translator
+	function trs(t,e,f)
+		t=h:JSONDecode(game:HttpGet('https://translate.googleapis.com/translate_a/single?client=gtx&sl='..f..'&tl='..e..'&dt=t&q='..h:UrlEncode(t)))
+		return t[1][1][1],t[3]
+	end
+	function nPlr(plr)
+		gg().CT.C[plr.Chatted:Connect(function(m)
+			local t,l=trs(m,e,'auto')
+			if l~=e and l and t then
+				pr.Text='('..l..') ['..plr.Name..']: '..t
+				SG:SetCore('ChatMakeSystemMessage',pr)
+			end
+		end)]=0
+	end
+	gg().CT.C[plrs.PlayerAdded:Connect(function(plr)
+		nPlr(plr)
+	end)]=0
+	for _,plr in ipairs(plrs:GetPlayers())do
+		nPlr(plr)
+	end
+	pr.Text='[TR] Google Translator Enabled'
+	SG:SetCore('ChatMakeSystemMessage',pr)
+	--|Sended Translator
+	local t,gcn,tr=plrs.LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar,getconnections,nil
+	if gcn then
+		for _,v in pairs(gcn(t.FocusLost))do
+			v:Disable()
+			gg().CT.fcs[v.Function]=v
+		end
+	else
+		warn'getconnections=nil'
+	end
+	local l={es='Spanish',jw='Japanese',co='Corsican',is='Icelandic',ms='Malay',ps='Pashto',bg='Bulgarian',ro='Romanian',ur='Urdu',mg='Malagasy',no='Norwegian',uk='Ukrainian',ig='Igbo',tg='Tajik',['zh-cn']='Chinese Simplified',lo='Lao',ko='Korean',kk='Kazakh',eo='Esperanto',cs='Czech',bs='Bosnian',bn='Bengali',fr='French',hr='Croatian',hmn='Hmong',yi='Yiddish',mr='Marathi',vi='Vietnamese',lv='Latvian',af='Afrikaans',sr='Serbian',zu='Zulu',auto='Automatic',lb='Luxembourgish',az='Azerbaijani',kn='Kannada',km='Khmer',en='English',ar='Arabic',xh='Xhosa',cy='Welsh',my='Myanmar (Burmese)',uz='Uzbek',hu='Hungarian',am='Amharic',tr='Turkish',eu='Basque',th='Thai',ny='Chichewa',ca='Catalan',te='Telugu',de='German',gu='Gujarati',sq='Albanian',hy='Armenian',sv='Swedish',da='Danish',ka='Georgian',ja='Japanese',sw='Swahili',ha='Hausa',su='Sundanese',so='Somali',st='Sesotho',la='Latin',mk='Macedonian',hi='Hindi',haw='Hawaiian',fi='Finnish',mi='Maori',sk='Slovak',si='Sinhala',ta='Tamil',it='Italian',sn='Shona',gd='Scots Gaelic',ht='Haitian Creole',et='Estonian',sm='Samoan',ru='Russian',pa='Punjabi',ne='Nepali',yo='Yoruba',fa='Persian',pt='Portuguese',mt='Maltese',mn='Mongolian',ga='Irish',lt='Lithuanian',sl='Slovenian',tl='Filipino',ky='Kyrgyz',ku='Kurdish (Kurmanji)',ceb='Cebuano',pl='Polish',ml='Malayalam',['zh-tw']='Chinese Traditional',id='Indonesian',iw='Hebrew',sd='Sindhi',nl='Dutch',gl='Galician',fy='Frisian',el='Greek',be='Belarusian'}
+	gg().CT.C[t.FocusLost:Connect(function(en,r)
+		if CT==go then
+			if e and t.Text~=''then
+				if t.Text=='>d'then
+					tr,pr.Text=nil,'[TR] Sending Disabled'
+					SG:SetCore('ChatMakeSystemMessage',pr)
+					t.Text=''
+				elseif sb(t.Text,1,1)=='>'then
+					local s=sb(t.Text,2)
+					if l[s]then
+						tr=string.lower(s)
+						if tr~=e then
+						print(tr,e)
+							pr.Text='[TR] '..l[s]
+							SG:SetCore('ChatMakeSystemMessage',pr)
+						end
+					else
+						pr.Text='[TR] Invalid language'
+						SG:SetCore('ChatMakeSystemMessage',pr)
+					end
+					t.Text=''
+				elseif tr then
+					t.Text=trs(t.Text,tr,e)
+				end
+			end
+			for i in pairs(gg().CT.fcs)do
+				i(en,r)
+			end
+		end
+	end)]=0
+	return 2
+else
+	warn'request=nil'
+	return
+end
