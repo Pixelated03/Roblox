@@ -1,5 +1,5 @@
 --|Original: https://v3rmillion.net/showthread.php?tid=1166531
---|This is a version that runs instantly with no crashes so it's simplified
+--|This is a first version that runs instantly without crashes so it's simplified, I'll create a UI later
 if not game:IsLoaded()then
 	game.Loaded:Wait()
 end
