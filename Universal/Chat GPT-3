@@ -1,3 +1,7 @@
+--[[|Raw:
+	API_KEY=''
+	loadstring(game:HttpGet'https://raw.githubusercontent.com/Pixelated03/Roblox/main/Universal/Chat%20GPT-3')()
+]]
 --|Simplified version of chat with "GPT-3"
 --|You will need an API_KEY: https://platform.openai.com/account/api-keys
 if not game:IsLoaded()then
