@@ -24,7 +24,7 @@ gg().GT={C={},fcs={},D=function()
 	end
 	gg().GT=nil
 end}
-local API_KEY,lc,go,tr,tc,h,rq,sb,plrs,SG,pr=API_KEY or'API_KEY_HERE'true,GT,true,nil,game:FindService'HttpService',request or syn.request or http_request or http.request,string.sub,game:FindService'Players',game:FindService'StarterGui',{Color=Color3.new(.458824,.662745,.611765),Font=Enum.Font.SourceSansItalic,TextSize=16}
+local API_KEY,lc,go,tr,tc,h,rq,sb,plrs,SG,pr=API_KEY or'API_KEY_HERE',true,GT,true,nil,game:FindService'HttpService',request or syn.request or http_request or http.request,string.sub,game:FindService'Players',game:FindService'StarterGui',{Color=Color3.new(.458824,.662745,.611765),Font=Enum.Font.SourceSansItalic,TextSize=16}
 if rq then
 	--|Request
 	local headers={Authorization='Bearer '..API_KEY,['Content-Type']='application/json'}
