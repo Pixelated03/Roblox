@@ -1,5 +1,5 @@
 --[[|Raw:
-	API_KEY=''
+	getgenv().API_KEY=''
 	loadstring(game:HttpGet'https://raw.githubusercontent.com/Pixelated03/Roblox/main/Universal/Chat%20GPT-3')()
 ]]
 --|Simplified version of chat with "GPT-3"
