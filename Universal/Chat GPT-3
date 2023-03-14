@@ -1,4 +1,5 @@
 --|Simplified version of chat with "GPT-3"
+--|API_KEY on line 28 or in the g() function
 if not game:IsLoaded()then
 	game.Loaded:Wait()
 end
@@ -22,27 +23,27 @@ end}
 local lc,go,tr,tc,h,rq,sb,plrs,SG,pr=true,GT,true,nil,game:FindService'HttpService',request or syn.request or http_request or http.request,string.sub,game:FindService'Players',game:FindService'StarterGui',{Color=Color3.new(.458824,.662745,.611765),Font=Enum.Font.SourceSansItalic,TextSize=16}
 if rq then
 	--|Request
-	local headers={Authorization='Bearer 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',['Content-Type']='application/json'}
+	local headers={Authorization='Bearer API_KEY_HERE',['Content-Type']='application/json'}
 	function g(s)
-		local r=string.gsub(h:JSONDecode(request({Url='https://api.openai.com/v1/chat/completions', Method='POST', Body='{"messages":[{"content":"'..s..'","role":"user"}],"model":"gpt-3.5-turbo"}', Headers=headers}).Body).choices[1].message.content,'^%s+','')
-		return r
+		return string.gsub(h:JSONDecode(request({Url='https://api.openai.com/v1/chat/completions', Method='POST', Body='{"messages":[{"content":"'..s..'","role":"user"}],"model":"gpt-3.5-turbo"}', Headers=headers}).Body).choices[1].message.content,'^%s+','')
 	end
 	--|[CHAT] GPT
-	local t,gcn,fs=plrs.LocalPlayer.PlayerGui:FindFirstChild'Chat'and plrs.LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar or game:FindService'Coregui'.ExperienceChat.appLayout.chatInputBar.Background.Container.TextContainer.TextBoxContainer.TextBox,getconnections,firesignal
+	local t,gcn,fs=plrs.LocalPlayer.PlayerGui:FindFirstChild'Chat'and plrs.LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar or game:FindService'CoreGui'.ExperienceChat.appLayout.chatInputBar.Background.Container.TextContainer.TextBoxContainer.TextBox,getconnections,firesignal
 	if fs or gcn then
 		function sc(gp)
-			t.Text=gp
-			if fs then
-				fs(t.FocusLost,true)
-			else
-				for _,v in pairs(gg().GT.fcs)do
-					v:Fire(true)
+			if tc then
+				t.Text=gp
+				if fs then
+					fs(t.FocusLost,true)
+				else
+					for _,v in pairs(gg().GT.fcs)do
+						v:Fire(true)
+					end
 				end
 			end
 		end
 		function nPlr(plr)
 			gg().GT.C[plr.Chatted:Connect(function(m)
-				print(tc)
 				if tc and sb(m,1,1)~='/'then
 					local gp=g(m)
 					local ot,lo=t.Text,#gp
