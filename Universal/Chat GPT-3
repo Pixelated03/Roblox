@@ -1,0 +1,126 @@
+--|Simplified version of chat with "GPT-3"
+if not game:IsLoaded()then
+	game.Loaded:Wait()
+end
+--|Disconnect Older
+if GT then
+	GT.D()
+end
+--|API Requests
+local gg=getgenv
+gg().GT={C={},fcs={},D=function()
+	for i in pairs(gg().GT.C)do
+		print(i)
+		i:Disconnect()
+	end
+	gg().GT.D=nil
+	for _,v in pairs(gg().GT.fcs)do
+		v:Enable()
+	end
+	gg().GT=nil
+end}
+local lc,go,tr,tc,h,rq,sb,plrs,SG,pr=true,GT,true,nil,game:FindService'HttpService',request or syn.request or http_request or http.request,string.sub,game:FindService'Players',game:FindService'StarterGui',{Color=Color3.new(.458824,.662745,.611765),Font=Enum.Font.SourceSansItalic,TextSize=16}
+if rq then
+	--|Request
+	local headers={Authorization='Bearer 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',['Content-Type']='application/json'}
+	function g(s)
+		local r=string.gsub(h:JSONDecode(request({Url='https://api.openai.com/v1/chat/completions', Method='POST', Body='{"messages":[{"content":"'..s..'","role":"user"}],"model":"gpt-3.5-turbo"}', Headers=headers}).Body).choices[1].message.content,'^%s+','')
+		return r
+	end
+	--|[CHAT] GPT
+	local t,gcn,fs=plrs.LocalPlayer.PlayerGui:FindFirstChild'Chat'and plrs.LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar or game:FindService'Coregui'.ExperienceChat.appLayout.chatInputBar.Background.Container.TextContainer.TextBoxContainer.TextBox,getconnections,firesignal
+	if fs or gcn then
+		function sc(gp)
+			t.Text=gp
+			if fs then
+				fs(t.FocusLost,true)
+			else
+				for _,v in pairs(gg().GT.fcs)do
+					v:Fire(true)
+				end
+			end
+		end
+		function nPlr(plr)
+			gg().GT.C[plr.Chatted:Connect(function(m)
+				print(tc)
+				if tc and sb(m,1,1)~='/'then
+					local gp=g(m)
+					local ot,lo=t.Text,#gp
+					if lc and lo>199 then
+						for i=200,lo,200 do
+							if lo>0 then
+								sc(sb(gp,i))
+								lo=lo-200
+							end
+						end
+					else
+						sc(gp)
+					end
+					t.Text=ot
+				end
+			end)]=0
+		end
+		gg().GT.C[plrs.PlayerAdded:Connect(function(plr)
+			nPlr(plr)
+		end)]=0
+		for _,plr in ipairs(plrs:GetPlayers())do
+			if plr~=plrs.LocalPlayer then
+				nPlr(plr)
+			end
+		end
+	elseif not fs then
+		warn'firesignal=nil'
+	end
+	pr.Text='[GPT] Enabled. Type \'>\' at the beginning of a string for a response or type \'>gpt send/chat/kill\' to enable/disable'
+	SG:SetCore('ChatMakeSystemMessage',pr)
+	--|[SENDED] GPT
+	if gcn then
+		for _,v in pairs(gcn(t.FocusLost))do
+			v:Disable()
+			gg().GT.fcs[v.Function]=v
+		end
+	else
+		warn'getconnections=nil'
+	end
+	local cf=t.FocusLost:Connect(function(en,r)
+		if GT==go and en and t.Text~=''then
+			local ls=string.lower(t.Text)
+			if sb(ls,1,1)=='>'then
+				if sb(ls,1,4)=='>gpt'then
+					local ac,l=sb(ls,6)
+					if ac=='chat'then
+						l=tc
+						tc=not tc
+					elseif ac=='send'then
+						l=tr
+						tr=not tr
+					elseif ac=='kill'then
+						pr.Text='[GPT] Got It.'
+						SG:SetCore('ChatMakeSystemMessage',pr)
+						GT.D()
+						t.Text=''
+						return -1
+					else
+						ac='send'
+					end
+					pr.Text='[GPT] ['..ac..(l and'] Disabled.'or'] Enabled.')
+					SG:SetCore('ChatMakeSystemMessage',pr)
+				elseif tr then
+					pr.Text='[GPT] '..g(t.Text)
+					SG:SetCore('ChatMakeSystemMessage',pr)
+				end
+				t.Text=''
+			else
+				t.Text=t.Text
+			end
+			for i in pairs(gg().GT.fcs)do
+				i(en,r)
+			end
+		end
+	end)
+	gg().GT.C[cf]=0
+	return 0
+else
+	warn'request=nil'
+	return
+end
