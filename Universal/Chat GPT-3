@@ -1,5 +1,5 @@
 --|Simplified version of chat with "GPT-3"
---|API_KEY on line 28 or in the g() function
+--|API_KEY on line 26 or in the headers variable of the g() function
 if not game:IsLoaded()then
 	game.Loaded:Wait()
 end
