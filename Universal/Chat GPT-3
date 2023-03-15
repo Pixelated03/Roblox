@@ -23,9 +23,9 @@ gg().GT={C={},fcs={},D=function()
 	end
 	gg().GT=nil
 end}
-local API_KEY,lc,go,tr,tc,h,rq,sb,plrs,SG,pr=API_KEY or'API_KEY_HERE',true,GT,true,nil,game:FindService'HttpService',request or syn.request or http_request or http.request,string.sub,game:FindService'Players',game:FindService'StarterGui',{Color=Color3.new(.458824,.662745,.611765),Font=Enum.Font.SourceSansItalic,TextSize=16}
+local API_KEY,lc,go,tr,tc,h,rq,sb,plrs,SG,pr=API_KEY or'API_KEY_HERE',0,GT,true,nil,game:FindService'HttpService',request or syn.request or http_request or http.request,string.sub,game:FindService'Players',game:FindService'StarterGui',{Color=Color3.new(.458824,.662745,.611765),Font=Enum.Font.SourceSansItalic,TextSize=16}
 if rq then
-	--|Request
+	--|[REQUESTS]
 	local headers,wa,ga={Authorization='Bearer '..API_KEY,['Content-Type']='application/json'},0,game:FindService'MarketplaceService':GetProductInfo(game.PlaceId).Name
 	function g(s,p,g)
 		--| g = Delay
@@ -43,43 +43,34 @@ if rq then
 		return string.gsub(r.choices and r.choices[1].message.content or(r.error.code or r.error.type),'^%s+',''), r.error
 	end
 	--|[CHAT] GPT
-	local t,rmt,gcn,fs=plrs.LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar,game:FindService'ReplicatedStorage'.DefaultChatSystemChatEvents.SayMessageRequest,getconnections,firesignal
-	if fs or gcn then
-		function nPlr(plr)
-			gg().GT.C[plr.Chatted:Connect(function(m)
-				if tc and sb(m,1,1)~='/'and not string.match(m,'#')then
-					local gp,er=g(m,plr.Name,true)
-					if er then
-						pr.Text='[GPT] '..gp
-						SG:SetCore('ChatMakeSystemMessage',pr)
-					else
-						local lo=#gp
-						if lc and lo>199 then
-							for i=0,lo,200 do
-								if lo>0 and tc then
-									rmt:FireServer(sb(gp,i,i+200),'All')
-									lo=lo-200
-								end
-							end
-						elseif tc then
-							rmt:FireServer(gp,'All')
+	local t,rmt,gcn=plrs.LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar,game:FindService'ReplicatedStorage'.DefaultChatSystemChatEvents.SayMessageRequest,getconnections
+	function nPlr(plr)
+		gg().GT.C[plr.Chatted:Connect(function(m)
+			print(plr,m)
+			if tc and sb(m,1,1)~='/'and not string.match(m,'#')then
+				local gp,er=g(m,plr.Name,true)
+				if er then
+					pr.Text='[GPT] '..gp
+					SG:SetCore('ChatMakeSystemMessage',pr)
+				else
+					for i=0,#gp,200 do
+						if tc then
+							rmt:FireServer(sb(gp,i,i+200),'All')
 						end
 					end
 				end
-			end)]=0
-		end
-		gg().GT.C[plrs.PlayerAdded:Connect(function(plr)
-			nPlr(plr)
-		end)]=0
-		for _,plr in ipairs(plrs:GetPlayers())do
-			if plr~=plrs.LocalPlayer then
-				nPlr(plr)
 			end
-		end
-	elseif not fs then
-		warn'firesignal=nil'
+		end)]=0
 	end
-	pr.Text='[GPT] Enabled. Type \'>\' at the beginning of a string for a response or type \'>gpt send/chat/kill\' to enable/disable'
+	gg().GT.C[plrs.PlayerAdded:Connect(function(plr)
+		nPlr(plr)
+	end)]=0
+	for _,plr in ipairs(plrs:GetPlayers())do
+		if plr~=plrs.LocalPlayer then
+			nPlr(plr)
+		end
+	end
+	pr.Text='[GPT] Enabled(v3). Type \'>\' at the beginning of a string for a response or \'>gpt send/chat/kill\' to enable/disable'
 	SG:SetCore('ChatMakeSystemMessage',pr)
 	--|[SENDED] GPT
 	if gcn then
@@ -90,7 +81,7 @@ if rq then
 	else
 		warn'getconnections=nil'
 	end
-	local cf=t.FocusLost:Connect(function(en,r)
+	gg().GT.C[t.FocusLost:Connect(function(en,r)
 		if GT==go and en and t.Text~=''then
 			local ls=string.lower(t.Text)
 			if sb(ls,1,1)=='>'and#ls>1 then
@@ -101,9 +92,6 @@ if rq then
 					if ac=='chat'then
 						l=tc
 						tc=not tc
-					elseif ac=='send'then
-						l=tr
-						tr=not tr
 					elseif ac=='kill'then
 						pr.Text='[GPT] Got It.'
 						SG:SetCore('ChatMakeSystemMessage',pr)
@@ -127,8 +115,7 @@ if rq then
 				i(en,r)
 			end
 		end
-	end)
-	gg().GT.C[cf]=0
+	end)]=0
 	return 0
 else
 	warn'request=nil'
