@@ -41,7 +41,7 @@ if rq then
 		return t[1][1][1],t[3]
 	end
 	--|[CHAT] GT
-	local t,rmt,gcn=plrs.LocalPlayer.PlayerGui:FindFirstChild'Chat'and plrs.LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar or game:FindService'CoreGui'.ExperienceChat.appLayout.chatInputBar.Background.Container.TextContainer.TextBoxContainer.TextBox,game:FindService'ReplicatedStorage':FindFirstChild'DefaultChatSystemChatEvents',game:FindService'ReplicatedStorage'.DefaultChatSystemChatEvents.SayMessageRequest,getconnections
+	local t,rmt,gcn=plrs.LocalPlayer.PlayerGui:FindFirstChild'Chat'and plrs.LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar or game:FindService'CoreGui'.ExperienceChat.appLayout.chatInputBar.Background.Container.TextContainer.TextBoxContainer.TextBox,game:FindService'ReplicatedStorage':FindFirstChild'DefaultChatSystemChatEvents'and game:FindService'ReplicatedStorage'.DefaultChatSystemChatEvents.SayMessageRequest,getconnections
 	function nPlr(plr)
 		gg().CT.C[plr.Chatted:Connect(function(m)
 			if tc and sb(m,1,1)~='/'and not string.match(m,'#')then
