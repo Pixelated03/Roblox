@@ -109,7 +109,10 @@ if rq then
 							v:Fire(true)
 						end
 					else
-						rmt:FireServer(t.Text)
+						if rmt then
+							rmt:FireServer(t.Text)
+						end
+						print(t.Text)
 					end
 				else
 					t.Text=ot
