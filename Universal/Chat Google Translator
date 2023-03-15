@@ -1,4 +1,5 @@
 --|Original: https://v3rmillion.net/showthread.php?tid=1166531
+--|Supports 109 languages and can translate text in the new chat [test]
 --|This is a first version that runs instantly without crashes so it's simplified, I'll create a UI later
 if not game:IsLoaded()then
 	game.Loaded:Wait()
@@ -62,8 +63,10 @@ if rq then
 	--|[SENDED] GT
 	if gcn then
 		for _,v in pairs(gcn(t.FocusLost))do
-			v:Disable()
-			gg().CT.fcs[v.Function]=v
+			if v.Function then
+				v:Disable()
+				gg().CT.fcs[v.Function]=v
+			end
 		end
 	else
 		warn'getconnections=nil'
