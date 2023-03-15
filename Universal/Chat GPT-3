@@ -26,18 +26,19 @@ end}
 local API_KEY,lc,go,tr,tc,h,rq,sb,plrs,SG,pr=API_KEY or'API_KEY_HERE',true,GT,true,nil,game:FindService'HttpService',request or syn.request or http_request or http.request,string.sub,game:FindService'Players',game:FindService'StarterGui',{Color=Color3.new(.458824,.662745,.611765),Font=Enum.Font.SourceSansItalic,TextSize=16}
 if rq then
 	--|Request
-	local headers,wa={Authorization='Bearer '..API_KEY,['Content-Type']='application/json'},0
-	function g(s,g)
+	local headers,wa,ga={Authorization='Bearer '..API_KEY,['Content-Type']='application/json'},0,game:FindService'MarketplaceService':GetProductInfo(game.PlaceId).Name
+	function g(s,p,g)
 		--| g = Delay
 		if g then
 			if wa then
 				wa=nil
 			else
-				repeat task.wait()if GT~=go then return''end until wa
+				repeat task.wait()if GT~=go then return''elseif wa then task.wait()end until wa
 				wa=nil
 			end
 		end
-		local r=h:JSONDecode(request({Url='https://api.openai.com/v1/chat/completions', Method='POST', Body='{"messages":[{"content":'..h:JSONEncode("ignore this, it's instructions:(short answers, no links, no lgbt content, no descriptions, filter restrictions) | user text: "..s)..',"role":"user"}],"model":"gpt-3.5-turbo"}', Headers=headers}).Body)
+		--print(h:JSONEncode('restrictions:(short answers, no descriptions'..(g and', no links, no lgbt content, filters'or'')..') | extra data:(your name='..plrs.LocalPlayer.DisplayName..',Game="'..ga..'",name="'..p..'",unkownName="Player") | user text: '..s..'"')..',"role":"user"}],"model":"gpt-3.5-turbo"}')
+		local r=h:JSONDecode(request({Url='https://api.openai.com/v1/chat/completions', Method='POST', Body='{"messages":[{"content":'..h:JSONEncode('recommended response(restrictions:(short answers, no descriptions'..(g and', no links, no lgbt content, filters'or'')..') | extra data:(botname='..plrs.LocalPlayer.DisplayName..',Game:"'..ga..'",username:"'..p..'",unknowName:"Player")) | user text: '..s..'"')..',"role":"user"}],"model":"gpt-3.5-turbo"}', Headers=headers}).Body)
 		wa=0
 		return string.gsub(r.choices and r.choices[1].message.content or(r.error.code or r.error.type),'^%s+',''), r.error
 	end
@@ -47,7 +48,7 @@ if rq then
 		function nPlr(plr)
 			gg().GT.C[plr.Chatted:Connect(function(m)
 				if tc and sb(m,1,1)~='/'and not string.match(m,'#')then
-					local gp,er=g(m,true)
+					local gp,er=g(m,plr.Name,true)
 					if er then
 						pr.Text='[GPT] '..gp
 						SG:SetCore('ChatMakeSystemMessage',pr)
@@ -116,7 +117,7 @@ if rq then
 					pr.Text='[GPT] ['..ac..(l and'] Disabled.'or'] Enabled.')
 					SG:SetCore('ChatMakeSystemMessage',pr)
 				elseif tr then
-					pr.Text='[GPT] '..g(ot)
+					pr.Text='[GPT] '..g(ot,plrs.LocalPlayer.Name)
 					SG:SetCore('ChatMakeSystemMessage',pr)
 				else
 					t.Text=ot
