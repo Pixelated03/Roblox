@@ -104,15 +104,13 @@ if rq then
 					end
 				elseif tr then
 					t.Text=trs(ot,tr,e)
+					print(t.Text)
 					if gcn then
 						for _,v in pairs(gg().CT.fcs)do
 							v:Fire(true)
 						end
-					else
-						if rmt then
-							rmt:FireServer(t.Text)
-						end
-						print(t.Text)
+					elseif rmt then
+						rmt:FireServer(t.Text)
 					end
 				else
 					t.Text=ot
