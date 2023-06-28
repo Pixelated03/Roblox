@@ -1,9 +1,17 @@
+--[[|How to use:
+pcall(function()--Could return nil since some Instances aren't on API
+	print(game.HttpService:JSONEncode(getProps'Part'))
+end)
+]]--+ (Works on Studio/Exploit & I'm probably make a Plugin with this¿?)
+--|| Edited_By_Pixelated03 + API-Tracker maded from MaximumADHD ||--
 local w,y,l,n,API,REF,W,S,ycall,G
 do--[- Dir -]--
-	w,y,l,n,API,REF,W,S,ycall,G={C={},E={}},{Parts='BasePart',GUI='GuiObject'},{ServerOnly=true,Server=true,Deprecated=true}
+	G,rAPI,rREF,Http=getgenv and getgenv()or _G,'https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/roblox/Mini-API-Dump.json'
+	,'https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/roblox/ReflectionMetadata.xml',game:FindService'HttpService'
+	w,y,l,n,API,REF,W,S,ycall={C={},E={}},{Parts='BasePart',GUI='GuiObject'},{ServerOnly=true,Server=true,Deprecated=true}
 	,{Member=true,YieldFunction='Yi',Callbacks='Ca',Functions='Fu',Events='Ev',Properties='Pr',EnumItem='En',YieldFunctions='YFu'}
-	,(readfile and isfile and isfile'API'and readfile'API')or game:HttpGetAsync'https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/roblox/Mini-API-Dump.json'
-	,(readfile and isfile and isfile'REF'and readfile'REF')or game:HttpGetAsync'https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/roblox/ReflectionMetadata.xml'
+	,(readfile and isfile and isfile'API'and readfile'API')or G.API or pcall(function()game:HttpGetAsync(rAPI)end)or Http:GetAsync(rAPI)
+	,(readfile and isfile and isfile'REF'and readfile'REF')or G.REF or pcall(function()game:HttpGetAsync(rREF)end)or Http:GetAsync(rREF)
 	,{NotReplicated=true,CustomLuaState=true,Hidden=true,Yields=true},{PluginSecurity=true,NotAccessibleSecurity=true},function(f)
 		local co=coroutine.create(f)
 		if(coroutine.resume(co))then
@@ -11,14 +19,16 @@ do--[- Dir -]--
 		else
 			return nil
 		end
-	end,getgenv and getgenv()or _G
-	if not isfile'REF'then
-		writefile('REF',REF)
 	end
-	if not isfile'API'then
-		writefile('API',API)
+	if isfile then
+		if not isfile'REF'then
+			writefile('REF',REF)
+		end
+		if not isfile'API'then
+			writefile('API',API)
+		end
 	end
-	API=game:FindService'HttpService':JSONDecode(API)
+	API,G.API,G.REF=game:FindService'HttpService':JSONDecode(API),API,REF
 end
 do--[+ Ref_Parse +]--
 	--| w = { C = { Class = { Properties , Functions , ... } } , E = { Enum = { EnumItem } } } | y = ClassCategory | l = Blacklist | n = Content
@@ -194,5 +204,5 @@ do--[[ Global_Functions ]]--
 	G.getClasses=function()--|()
 		return w.C
 	end
-	game:FindService'TestService':Message'API_Loaded!'--|print(game.HttpService:JSONEncode(getProps'Part'))
+	game:FindService'TestService':Message'API_Loaded!'
 end
