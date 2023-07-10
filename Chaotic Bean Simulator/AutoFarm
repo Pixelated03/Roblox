@@ -1,5 +1,0 @@
---|Slowly AutoFarms the game..... I got banned for one more OP script LOL
-getgenv().EEEE=true
-while EEEE and task.wait()do
-	game.ReplicatedStorage.Events.OnLandFromJump:FireServer('\226\128\139')
-end
