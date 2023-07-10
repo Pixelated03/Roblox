@@ -1,4 +1,0 @@
---|Farm the Ladder
-while task.wait()do
-	fireproximityprompt(workspace.House.Podval.LeaderGetChildren()[6].Attachment.ProximityPrompt)
-end
